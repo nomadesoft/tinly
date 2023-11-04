@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Tin.ly OpenAPI
+  description: Tin.ly OpenAPI describes all interfaces for creating short URL.
+  version: 1.0.0
+servers:
+  - url: 'https://app.tinly.com'
+paths:
+  '/alias':
+    post:
+      description: Creates a tin.ly URL.
+      tags:
+        - Shortener
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAliasUrlRequest'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/aliasUrlResponse'
+
+  '/alias/:aliasId':
+    get:
+      description: Redirect URL
+      tags:
+        - Redirect
+      parameters:
+        - name: aliasId
+          in: path
+          schema:
+            type: string
+            example: '346ed1f'
+      responses:
+        308:
+          description: Redirect to the original URL
+
+components:
+  schemas:
+    createAliasUrlRequest:
+      description: Shrink request
+      properties:
+        long_url:
+          type: string
+          example: 'https://nomadesoft.io/space/1'
+        description:
+          type: string
+          example: 'my url'
+    aliasUrlResponse:
+      description: Shrink response
+      properties:
+        short_url:
+          type: string
+          example: 'https://tin.ly/346ed1f'
+        description:
+          type: string
+          example: 'my url'
+
+
+
+  
