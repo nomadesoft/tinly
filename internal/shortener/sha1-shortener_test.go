@@ -27,7 +27,7 @@ func TestSha1Shortener_Shrink(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := &Sha1Shortener{}
+			s := NewSha1Shortener()
 			got, err := s.Shrink(tt.args.originalURL)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Shrink() error = %v, wantErr %v", err, tt.wantErr)
